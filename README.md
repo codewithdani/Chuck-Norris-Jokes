@@ -20,6 +20,8 @@ git clone https://github.com/codewithdani/chuck-norris-jokes.git
 pip install -r requirements.txt
 
 3. Set up the database:
+
+```python
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
