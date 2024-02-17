@@ -63,9 +63,24 @@ def callback():
         audience=GOOGLE_CLIENT_ID
     )
 
-    session["google_id"] = id_info.get("sub")
-    session["name"] = id_info.get("name")
-    return redirect("/jokes.html")
+    google_id = id_info.get("sub")  # Extract Google ID
+    name = id_info.get("name")
+    email = id_info.get("email")
+
+    # Check if the user already exists in the database
+    user = GoogleUser.query.filter_by(google_id=google_id).first()
+
+    if not user:
+        # Create a new user record using Google account information
+        new_user = GoogleUser(google_id=google_id, name=name, email=email)  # Assuming no password is required for Google-authenticated users
+        db.session.add(new_user)
+        db.session.commit()
+
+    # Set user information in the session
+    session["google_id"] = google_id
+    session["name"] = name
+    
+    return redirect("/joke")
 
 
 @app.route("/logout")
@@ -92,11 +107,18 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
 
+class GoogleUser(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    google_id = db.Column(db.String(100), unique=True, nullable=False)  # Add Google ID field
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+
 class Joke(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     joke_text = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    google_id = db.Column(db.String(100), db.ForeignKey('google_user.google_id'), nullable=True)  # Corrected table name reference
 
 @app.route('/')
 def index():
@@ -159,6 +181,22 @@ def generate_joke():
     all_jokes = Joke.query.all()
 
     return render_template('jokes.html', latest_joke=latest_joke, jokes=all_jokes)
+
+@app.route('/joke')
+def joke():
+    if 'google_id' in session:  # Check if Google ID is in session
+        google_id = session['google_id']
+        user = GoogleUser.query.filter_by(google_id=google_id).first()
+        if user:
+            jokes = Joke.query.filter_by(google_id=google_id).all()
+            joke_texts = [joke.joke_text for joke in jokes]
+            return render_template('jokes.html', jokes=joke_texts)
+        else:
+            # Handle the case where the user is not found in the database
+            return render_template('error.html', message='User not found in the database.')
+    else:
+        # Redirect unauthenticated users to the index route
+        return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
