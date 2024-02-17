@@ -105,6 +105,12 @@ th, td {
 
 #show-jokes-btn {
     cursor: pointer;
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 40px;
+    background-color: #357ae8;
+    width: 30%;
+    text-align: center;
 }
 
 
