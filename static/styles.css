@@ -1,0 +1,165 @@
+.navbar {
+    margin-left: auto;
+}
+
+.navbar a {
+    font-size: 16px;
+    color: white;
+}
+
+nav {
+    background-color: rgb(128, 123, 123); /* Set background color */
+    text-align: right; /* Align navbar to the right */
+    padding: 10px; /* Add padding for spacing */
+    width: 100%
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin-right: 10px; /* Adjust spacing between links */
+}
+nav ul li a {
+    color: white; /* Set text color to white */
+    text-decoration: none; /* Remove underline */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 2rem;
+    background-color: #bec4bf;
+    color: rgb(26, 24, 24);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 2rem;
+}
+
+.google-signin-button {
+    display: inline-block;
+    background-color: #4285f4;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px; /* Adjust padding to make the button smaller */
+    border-radius: 40px;
+    font-size: 22px; /* Adjust font size */
+}
+
+.google-signin-button img {
+    vertical-align: middle;
+    margin-right: 8px; /* Adjust margin for spacing */
+    width: 2em; /* Set the width of the image relative to the font size */
+    height: 2em; /* Set the height of the image relative to the font size */
+    border-radius: 15px;
+    
+}
+
+.google-signin-button:hover {
+    background-color: #357ae8;
+}
+
+.btn {
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 40px;
+    background-color: #357ae8;
+    width: 100%;
+    cursor: pointer;
+}
+
+input {
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 40px;
+}
+
+footer {
+    background-color: #24242cfb;
+    color: #fff;
+    text-align: center;
+    padding: 2px;
+    width: 100%; 
+    position: absolute;
+    bottom: 0; 
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+#show-jokes-btn {
+    cursor: pointer;
+}
+
+
+/* Mobile (up to 767px) */
+@media (max-width: 767px) {
+    .navbar {
+        margin-left: auto;
+    }
+
+    .navbar a {
+        font-size: 14px;
+    }
+
+    body {
+        padding: 1rem;
+        font-size: 16px;
+    }
+
+    input, button {
+        font-size: 1rem;
+        padding: 1rem; 
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%; /* Make the footer full-width on mobile */
+    }
+
+}
+
+/* Tablet (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar {
+        margin-left: auto; /* Keep the desktop margin on the right for the navbar */
+    }
+
+    .navbar a {
+        font-size: 16px; /* Restore default font size for tablets */
+    }
+
+    input, button {
+        font-size: 1.8rem; /* Adjust font size for tablets */
+        padding: 1rem; /* Adjust padding for tablets */
+    }
+}
+
+/* Desktop (992px and larger) */
+@media (min-width: 992px) {
+    .navbar {
+        margin-left: auto; /* Keep the desktop margin on the right for the navbar */
+    }
+
+    .navbar a {
+        font-size: 16px; /* Restore default font size for desktop */
+    }
+
+}
