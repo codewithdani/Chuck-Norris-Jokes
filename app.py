@@ -130,10 +130,6 @@ def signin():
             return render_template('signin.html', error='User not found. Please register.')
     return render_template('signin.html')
 
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    return redirect(url_for('index'))
 
 @app.route('/jokes')
 def jokes():
