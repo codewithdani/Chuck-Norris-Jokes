@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuck Norris Jokes</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="ml-auto">
+            <a class="navbar-brand" href="logout">Logout</a>
+             <!--<a class="navbar-brand" href="user_report">Report</a> -->   
+                
+        </div>
+    </nav>
+    <h1>Chuck Norris Jokes</h1>
+    <a href="{{ url_for('generate_joke') }}">Generate Joke</a><br>
+    
+    <!-- Display the last joke -->
+    {% if latest_joke %}
+    <div>
+        <h2>Current Generated Joke:</h2>
+        <p>********************************</p>
+        <p>{{ latest_joke.joke_text }}</p>
+        <hr>
+    </div>
+    {% endif %}
+    
+    <button id="show-jokes-btn">Show Your List of Jokes</button>
+    
+    <!-- Display the list of jokes initially hidden -->
+    <div id="jokes-container" style="display: none;">
+        <h2>Your List of Jokes:</h2>
+        <p>************************</p>
+        {% for index, joke in jokes|enumerate(start=1) %}
+            <p>{{ index }}. {{ joke.joke_text }}</p> <!-- Access joke_text attribute and include joke number -->
+            <hr>
+            <br> <!-- Add new line after each joke -->
+        {% endfor %}
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
