@@ -11,7 +11,7 @@
         <div class="ml-auto">
             <a class="navbar-brand" href="logout">Logout</a>
              <!--<a class="navbar-brand" href="user_report">Report</a> -->   
-                
+             <a href="{{ url_for('feedback') }}">Feedback</a>  
         </div>
     </nav>
     <h1>Chuck Norris Jokes</h1>
@@ -39,6 +39,9 @@
             <br> <!-- Add new line after each joke -->
         {% endfor %}
     </div>
+    <!-- JavaScript to handle social sharing -->
+    <button class="google-signin-button" onclick="shareOnTwitter()">Share on Twitter</button>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
