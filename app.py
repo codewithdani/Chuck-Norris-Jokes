@@ -120,6 +120,10 @@ class Joke(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     google_id = db.Column(db.String(100), db.ForeignKey('google_user.google_id'), nullable=True)  # Corrected table name reference
 
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    message = db.Column(db.Text, nullable=False)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -197,6 +201,45 @@ def joke():
     else:
         # Redirect unauthenticated users to the index route
         return redirect(url_for('index'))
+    
+
+@app.route('/feedback', methods=['GET', 'POST'])
+def feedback():
+    if request.method == 'POST':
+        message = request.form['message']
+        new_feedback = Feedback(message=message)
+        db.session.add(new_feedback)
+        db.session.commit()
+        return redirect(url_for('feedback'))
+    else:
+        return render_template('feedback.html')
+
+@app.route('/view_feedback')
+def view_feedback():
+    feedback_messages = Feedback.query.all()
+    return render_template('view_feedback.html', feedback_messages=feedback_messages)
+
+last_joke = None
+
+# Endpoint to generate a new Chuck Norris joke
+@app.route('/generate_joke_social', methods=['GET'])
+def generate_joke_social():
+    # Generate new Chuck Norris joke (replace this with your actual logic)
+    new_joke = "Joke.query.order_by(Joke.timestamp.desc()).first()"
+    # Store the new joke as the last generated joke
+    global last_joke
+    last_joke = new_joke
+    return jsonify({'joke': new_joke})
+
+# Endpoint to return the last generated Chuck Norris joke
+@app.route('/last_joke', methods=['GET'])
+def get_last_joke():
+    last_joke = Joke.query.order_by(Joke.timestamp.desc()).first()
+    
+    if last_joke:
+        return jsonify({'joke': last_joke.joke_text})
+    else:
+        return jsonify({'error': 'No joke available'}), 404
 
 
 if __name__ == "__main__":
