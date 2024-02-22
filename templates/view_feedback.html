@@ -7,6 +7,12 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="ml-auto">
+            <a class="navbar-brand" href="logout">Logout</a> 
+            <a href="{{ url_for('index') }}">Home</a>
+        </div>
+    </nav>
     <h1>Feedback Messages</h1>
     <ul>
         {% for message in feedback_messages %}
