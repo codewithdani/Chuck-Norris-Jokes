@@ -2,6 +2,9 @@
 
 This web application allows users to generate and view Chuck Norris jokes. Users can generate random Chuck Norris jokes and view their own list of jokes.
 
+## Deployed
+The application is deployed and can be accessed: https://chuck-norris-jokes-762t.onrender.com
+
 ## Features
 
 - **Generate Joke**: Click the "Generate Joke" button to generate a random Chuck Norris joke.
@@ -10,6 +13,7 @@ This web application allows users to generate and view Chuck Norris jokes. Users
 - **User Authentication**: Users can sign up, sign in, sign in using Google Authentication and log out. Each user has their own list of jokes.
 - **Database Storage**: Jokes are stored in a SQLite database.
 - **Responsive Design**: The web application is responsive and works well on different devices.
+- **Share Jokes to Twitter**: Users can share their favorite jokes to Twitter directly from the application.
 
 ## Installation
 
