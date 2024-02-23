@@ -9,7 +9,6 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
-from oauthlib.oauth2 import WebApplicationClient
 
 app = Flask("Google Login App")
 app.secret_key = "codewithdani.com"
