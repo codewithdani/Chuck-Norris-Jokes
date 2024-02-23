@@ -50,7 +50,7 @@ body {
     background-color: #4285f4;
     color: #fff;
     text-decoration: none;
-    padding: 8px 16px; /* Adjust padding to make the button smaller */
+    padding: 6px 12px; /* Adjust padding to make the button smaller */
     border-radius: 40px;
     font-size: 22px; /* Adjust font size */
     cursor: pointer;
