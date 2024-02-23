@@ -52,7 +52,7 @@ body {
     text-decoration: none;
     padding: 6px 12px; /* Adjust padding to make the button smaller */
     border-radius: 40px;
-    font-size: 22px; /* Adjust font size */
+    font-size: 16px; /* Adjust font size */
     cursor: pointer;
 }
 
