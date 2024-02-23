@@ -9,6 +9,7 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
+from oauthlib.oauth2 import WebApplicationClient
 
 app = Flask("Google Login App")
 app.secret_key = "codewithdani.com"
@@ -81,6 +82,56 @@ def callback():
     session["name"] = name
     
     return redirect("/joke")
+
+
+# GitHub OAuth settings
+GITHUB_CLIENT_ID = 'b9efcd4bf38e74b93d74'
+GITHUB_CLIENT_SECRET = 'be1930cda8c586ed95e792ec14b245358a5f70dc'
+GITHUB_REDIRECT_URI = 'https://chuck-norris-jokes-762t.onrender.com/github_callback'
+
+@app.route("/github_callback")
+def github_callback():
+    # Get the authorization code from the request query parameters
+    code = request.args.get('code')
+
+    # Exchange the authorization code for an access token
+    client = WebApplicationClient(GITHUB_CLIENT_ID)
+    token_endpoint = 'https://github.com/login/oauth/access_token'
+    token_params = {
+        'client_id': GITHUB_CLIENT_ID,
+        'client_secret': GITHUB_CLIENT_SECRET,
+        'code': code,
+        'redirect_uri': GITHUB_REDIRECT_URI
+    }
+    token_response = requests.post(token_endpoint, data=token_params)
+    token_data = token_response.json()
+    access_token = token_data.get('access_token')
+
+    # Fetch user information using the access token
+    user_endpoint = 'https://api.github.com/user'
+    headers = {'Authorization': f'token {access_token}'}
+    user_response = requests.get(user_endpoint, headers=headers)
+    user_data = user_response.json()
+
+    # Extract user information
+    github_id = user_data.get('id')
+    name = user_data.get('name')
+    email = user_data.get('email')
+
+    # Check if the user already exists in the database
+    user = User.query.filter_by(github_id=github_id).first()
+
+    if not user:
+        # Create a new user record using GitHub account information
+        new_user = User(github_id=github_id, name=name, email=email)  # Assuming no password is required for GitHub-authenticated users
+        db.session.add(new_user)
+        db.session.commit()
+
+    # Set user information in the session
+    session["github_id"] = github_id
+    session["name"] = name
+    
+    return redirect("/joke")  # Redirect to the desired page after authentication
 
 
 @app.route("/logout")
