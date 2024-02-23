@@ -83,7 +83,7 @@ def callback():
     
     return redirect("/joke")
 
-
+'''
 # GitHub OAuth settings
 GITHUB_CLIENT_ID = 'b9efcd4bf38e74b93d74'
 GITHUB_CLIENT_SECRET = 'be1930cda8c586ed95e792ec14b245358a5f70dc'
@@ -132,7 +132,7 @@ def github_callback():
     session["name"] = name
     
     return redirect("/joke")  # Redirect to the desired page after authentication
-
+'''
 
 @app.route("/logout")
 def logout():
