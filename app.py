@@ -221,16 +221,6 @@ def view_feedback():
 
 last_joke = None
 
-# Endpoint to generate a new Chuck Norris joke
-@app.route('/generate_joke_social', methods=['GET'])
-def generate_joke_social():
-    # Generate new Chuck Norris joke (replace this with your actual logic)
-    new_joke = "Joke.query.order_by(Joke.timestamp.desc()).first()"
-    # Store the new joke as the last generated joke
-    global last_joke
-    last_joke = new_joke
-    return jsonify({'joke': new_joke})
-
 # Endpoint to return the last generated Chuck Norris joke
 @app.route('/last_joke', methods=['GET'])
 def get_last_joke():
